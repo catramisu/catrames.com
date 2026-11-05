@@ -17,8 +17,8 @@ a { color: inherit; text-decoration: none; }
 .top { border-bottom: 1px solid var(--line); }
 .brand { display: inline-flex; align-items: center; width: 116px; }
 .brand img { display: block; width: 100%; height: auto; max-height: 36px; object-fit: contain; object-position: left center; }
-.top .brand { width: 190px; }
-.top .brand img { max-height: 53px; }
+.top .brand { width: 190px; height: 58px; overflow: hidden; flex: 0 0 190px; }
+.top .brand img { width: 190px; height: 88px; max-width: 190px; max-height: 88px; object-fit: contain; object-position: left center; flex: 0 0 190px; }
 .top-note, .small-label, .footnote, .record-head, .record-meta, .bottom-note a, footer > span, .correction button {
   font: 9px var(--mono); letter-spacing: .075em;
 }
