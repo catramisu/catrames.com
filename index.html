@@ -6,6 +6,7 @@
   <meta name="theme-color" content="#090a0b">
   <meta name="description" content="Catrames. A small record of something that may not have happened.">
   <title>Catrames — A Small Record</title>
+  <link rel="icon" type="image/png" href="pics/logo_transparent.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -13,7 +14,7 @@
 </head>
 <body>
   <header class="top">
-    <a class="brand" href="#top">catrames<span>®</span></a>
+    <a class="brand" href="#top" aria-label="Catrames home"><img src="pics/banner_transparent.png" alt="Catrames"></a>
     <span class="top-note">A RECORD OF UNCERTAIN ORIGIN</span>
   </header>
 
@@ -47,10 +48,133 @@
       <p>There is no evidence that this page was here yesterday.</p>
       <button id="closeCorrection" type="button">CLOSE NOTE <span>×</span></button>
     </div>
+
+    <button class="secret-trigger" id="secretTrigger" type="button" aria-expanded="false">
+      <span class="secret-mark">∎</span> FILE 17B
+    </button>
+
+    <section class="dossier" id="dossier" hidden aria-labelledby="dossierTitle">
+      <div class="dossier-head">
+        <span class="small-label">RECOVERED PROJECT FILE</span>
+        <span class="dossier-code">CATRAMES / INTERNAL</span>
+      </div>
+      <div class="dossier-intro">
+        <p class="eyebrow">A DARK RETRO-HORROR TACTICAL CARD GAME</p>
+        <h2 id="dossierTitle">What was being built.</h2>
+        <p>Catrames is a real-time tactical card game played across a physical 3D table. Players sacrifice units, manage shrinking turn time and fight to break an opponent's Soul Orb before the table goes quiet.</p>
+      </div>
+
+      <div class="dossier-grid">
+        <article>
+          <span class="dossier-number">01</span>
+          <h3>The core loop</h3>
+          <p>Draw from either the Main Deck or the unlimited Filler Deck. Spend Souls by sacrificing units, place your cards on a 4 × 4 battlefield, then use attacks, items and abilities before ringing the Desk Bell.</p>
+        </article>
+        <article>
+          <span class="dossier-number">02</span>
+          <h3>The pressure</h3>
+          <p>Every round and every point of damage makes the next turn shorter. The Soul Orb records the loss with cracks, colour and shaking feedback. At ten seconds, another hit can end the match.</p>
+        </article>
+        <article>
+          <span class="dossier-number">03</span>
+          <h3>The world</h3>
+          <p>The team is building a strange, low-detail space inspired by PS1-era horror, CRT interference and haunted tabletop games. It should feel tactile, readable and slightly unreliable.</p>
+        </article>
+      </div>
+
+      <div class="process">
+        <div class="process-title">
+          <span class="small-label">CHRONOLOGY / WORKING PROCESS</span>
+          <span class="dossier-code">STATUS: IN PROGRESS</span>
+        </div>
+        <div class="timeline">
+          <article class="timeline-item">
+            <div class="timeline-copy"><span class="dossier-number">01 / FIRST CONTACT</span><h3>Opening the menu</h3><p>The project first presents itself through the main menu: the Catrames identity, navigation and the first glimpse of the world around the player.</p></div>
+            <img src="pics/Picture4.png" alt="Catrames main menu interface">
+          </article>
+          <article class="timeline-item timeline-item-reverse">
+            <div class="timeline-copy"><span class="dossier-number">02 / ENTERING THE WORLD</span><h3>Finding the table</h3><p>After the menu, the player enters the physical game location: a wooden table, a campfire, a dark forest and a place to begin the match.</p></div>
+            <img src="pics/Picture1.png" alt="Catrames table game location">
+          </article>
+          <article class="timeline-item">
+            <div class="timeline-copy"><span class="dossier-number">03 / BLOCKOUT</span><h3>Building the atmosphere</h3><p>With the location established, the team tested scale, composition and the empty space surrounding the play area.</p></div>
+            <img src="pics/Picture2.png" alt="Catrames environment blockout">
+          </article>
+          <article class="timeline-item timeline-item-reverse">
+            <div class="timeline-copy"><span class="dossier-number">04 / WORLD PASS</span><h3>Making the world feel lost</h3><p>Low-detail trees, fog and limited light shaped the PS1-inspired visual language around the match.</p></div>
+            <img src="pics/Picture3.png" alt="Catrames forest environment">
+          </article>
+          <article class="timeline-item">
+            <div class="timeline-copy"><span class="dossier-number">05 / IDENTITY</span><h3>Giving it a name</h3><p>The logo, title screen and CRT treatment became the final layer: a game that feels like a recovered object from another machine.</p></div>
+            <img src="pics/Picture5.png" alt="Catrames title screen">
+          </article>
+        </div>
+      </div>
+
+      <div class="rules">
+        <div class="process-title">
+          <span class="small-label">RULES / MATCH FLOW</span>
+          <span class="dossier-code">SOURCE: SYSTEM SPECIFICATION</span>
+        </div>
+        <div class="rules-intro">
+          <h3>Every move is checked, paid for and remembered.</h3>
+          <p>The board is split into front and back rows. A turn always begins with a draw, continues with at least one action, and ends when the player rings the bell. As rounds pass, the available time shrinks until an exposed hit can break the Soul Orb.</p>
+        </div>
+        <div class="rule-diagrams">
+          <figure class="rule-diagram">
+            <img src="pics/image0.jpg" alt="Catrames board layout showing front rows, back rows and the Soul Orb">
+            <figcaption><span class="dossier-number">RULE 01 / BOARD</span><strong>Front rows block. Back rows support.</strong><p>Each player controls two rows of four slots. Attacks move through the front row first; an unblocked hit reaches the Soul Orb.</p></figcaption>
+          </figure>
+          <figure class="rule-diagram">
+            <img src="pics/image1.jpg" alt="Catrames turn order and shrinking turn timer">
+            <figcaption><span class="dossier-number">RULE 02 / TURN</span><strong>Draw, act, ring the bell.</strong><p>Players must draw first and make at least one action before passing the turn. The timer drops from 3:00 as the match progresses; at 10 seconds, any hit loses the game.</p></figcaption>
+          </figure>
+        </div>
+        <div class="flow-grid">
+          <article class="flow-card">
+            <span class="dossier-number">FLOW 01 / PLAY DEFAULT GAME</span>
+            <h3>From draw to result</h3>
+            <ol>
+              <li><span>01</span>Match starts: confirm players, mode and rules.</li>
+              <li><span>02</span>Deal five Main Deck cards and set the Soul Orb timer.</li>
+              <li><span>03</span>Choose a card or a Withering Rose.</li>
+              <li><span>04</span>Check legality; reject invalid moves without changing state.</li>
+              <li><span>05</span>Pay the required sacrifice, apply the move and synchronize.</li>
+              <li><span>06</span>Ring the Desk Bell after at least one action, or lose when time expires.</li>
+              <li><span>07</span>Check the Soul Orb and winning condition, then advance clockwise.</li>
+            </ol>
+          </article>
+          <article class="flow-card">
+            <span class="dossier-number">FLOW 02 / MATCH RESOLUTION</span>
+            <h3>One authoritative state</h3>
+            <ol>
+              <li><span>01</span>Client submits the selected card, target and action.</li>
+              <li><span>02</span>The best-ping host validates souls, placement, target and turn.</li>
+              <li><span>03</span>Resolve costs, deployment effects, auras and the damage pipeline.</li>
+              <li><span>04</span>Apply statuses, deaths, triggers and automatic row rotation.</li>
+              <li><span>05</span>Check Soul Orb and win conditions.</li>
+              <li><span>06</span>Broadcast the incremented state snapshot to every peer.</li>
+              <li><span>07</span>If the host disconnects, wait 30 seconds, transfer authority and continue from the latest valid snapshot.</li>
+            </ol>
+          </article>
+        </div>
+      </div>
+
+      <div class="dossier-footer">
+        <div>
+          <span class="small-label">PROJECT NOTES</span>
+          <p>Multiplayer card-game platform · 1v1 and four-player free-for-all · persistent decks · community editor planned.</p>
+        </div>
+        <div class="tech-list">
+          <span>GODOT 4.7</span><span>C# / .NET</span><span>PS1 / CRT</span>
+        </div>
+      </div>
+
+    </section>
   </main>
 
   <footer>
-    <a class="brand" href="#top">catrames<span>®</span></a>
+    <a class="brand" href="#top" aria-label="Catrames home"><img src="pics/logo_transparent.png" alt="Catrames"></a>
     <span>NO FURTHER INFORMATION AVAILABLE.</span>
     <span>© ???</span>
   </footer>
