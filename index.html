@@ -3,181 +3,831 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#090a0b">
-  <meta name="description" content="Catrames. A small record of something that may not have happened.">
-  <title>Catrames — A Small Record</title>
-  <link rel="icon" type="image/png" href="pics/logo_transparent.png">
+  <meta name="theme-color" content="#070808">
+  <meta name="description" content="Catrames is a turn-based tactical card game played across a physical 3D table. Read the revised rules, see what changed, and scrub the project timeline.">
+  <meta name="author" content="Catrames">
+  <link rel="canonical" href="https://catrames.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Catrames">
+  <meta property="og:title" content="Catrames — The table is set.">
+  <meta property="og:description" content="A dark retro-horror tactical card game. Revised rules, public changelog and a date-by-date project timeline.">
+  <meta property="og:url" content="https://catrames.com/">
+  <meta property="og:image" content="https://catrames.com/pics/hero.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Catrames — The table is set.">
+  <meta name="twitter:description" content="A dark retro-horror tactical card game. Revised rules, public changelog and a date-by-date project timeline.">
+  <meta name="twitter:image" content="https://catrames.com/pics/hero.jpg">
+  <title>Catrames — A Dark Retro-Horror Tactical Card Game</title>
+  <link rel="icon" type="image/png" href="pics/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
-  <header class="top">
-    <a class="brand" href="#top" aria-label="Catrames home"><img src="pics/banner_transparent.png" alt="Catrames" width="190" height="88"></a>
-    <span class="top-note">A RECORD OF UNCERTAIN ORIGIN</span>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" id="siteHeader">
+    <div class="header-inner">
+      <a class="brand" href="#top" aria-label="Catrames home">
+        <img src="pics/banner.png" alt="Catrames" width="760" height="352" decoding="async">
+      </a>
+
+      <nav class="site-nav" id="siteNav" aria-label="Primary">
+        <a href="#changes" data-nav="changes">Changes</a>
+        <a href="#game" data-nav="game">Game</a>
+        <a href="#timeline" data-nav="timeline">Timeline</a>
+        <a href="#rules" data-nav="rules">Rules</a>
+        <a href="#devlog" data-nav="devlog">Under the hood</a>
+      </nav>
+
+      <a class="header-cta" href="#rules">Read the rules <span aria-hidden="true">↗</span></a>
+
+      <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="siteNav">
+        <span class="nav-toggle-line"></span>
+        <span class="nav-toggle-line"></span>
+        <span class="sr-only">Open menu</span>
+      </button>
+    </div>
   </header>
 
-  <main id="top">
-    <section class="opening">
-      <div class="small-label"><span class="status-dot"></span> ARCHIVE ENTRY 00—17 <span class="separator">/</span> STATUS: INCOMPLETE</div>
-      <h1>410 - It never<br>did exist.</h1>
-      <div class="copy">
-        <p>There are notes about a game called Catrames.</p>
-        <p>No original copy has been recovered. The few people who remember it disagree on the rules, the artwork, and whether they ever played it at all.</p>
-        <p class="last-line">We have decided to leave the record as it is.</p>
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="heroTitle">
+      <div class="hero-media" aria-hidden="true">
+        <img src="pics/hero.jpg" alt="" width="1536" height="1024" fetchpriority="high" decoding="async">
       </div>
-      <div class="footnote">IF YOU REMEMBER SOMETHING DIFFERENT, PLEASE KEEP IT THAT WAY.</div>
+      <div class="hero-vignette" aria-hidden="true"></div>
+      <div class="hero-scanlines" aria-hidden="true"></div>
+      <div class="hero-grain" aria-hidden="true"></div>
+      <div class="hero-grid" aria-hidden="true"></div>
+      <div class="hero-embers" id="embers" aria-hidden="true"></div>
+
+      <div class="hero-inner">
+        <div class="hero-content">
+          <div class="hero-topline reveal">
+            <span class="status-dot"></span>
+            <span>PROJECT FILE 17B</span>
+            <span class="sep">/</span>
+            <span>NOW PUBLIC</span>
+          </div>
+
+          <p class="hero-kicker reveal" style="--delay:.06s">A DARK RETRO-HORROR TACTICAL CARD GAME</p>
+
+          <h1 class="hero-title reveal" id="heroTitle" style="--delay:.12s">The table<br><em>is set.</em></h1>
+
+          <p class="hero-lead reveal" style="--delay:.18s">Catrames is a turn-based tactical card game played across a physical 3D table. Sacrifice units, spend souls, and run the other player out of time — before your orb shatters.</p>
+
+          <div class="hero-actions reveal" style="--delay:.24s">
+            <a class="btn btn-primary" href="#rules"><span>Read the rules</span><span class="btn-arrow" aria-hidden="true">↗</span></a>
+            <a class="btn btn-ghost" href="#changes"><span>What changed</span><span class="btn-arrow" aria-hidden="true">↓</span></a>
+          </div>
+
+          <div class="hero-stats reveal" style="--delay:.3s">
+            <div><span class="stat-value">1</span><span class="stat-label">DRAW EACH TURN</span></div>
+            <div><span class="stat-value">3:00</span><span class="stat-label">BASE TURN</span></div>
+            <div><span class="stat-value">4×4</span><span class="stat-label">BATTLEFIELD</span></div>
+            <div><span class="stat-value">10s</span><span class="stat-label">LOW-TIME LETHAL</span></div>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal" style="--delay:.18s" aria-hidden="true">
+          <div class="hero-frame">
+            <div class="hero-frame-bar"><span>FILE 17B</span><span>TITLE SCREEN / CRT</span></div>
+            <div class="hero-frame-media">
+              <img src="pics/title.jpg" alt="" width="1015" height="560" fetchpriority="high" decoding="async">
+              <div class="hero-frame-scanlines"></div>
+            </div>
+            <div class="hero-frame-caption"><span>CURRENT BUILD</span><span>IDENTITY PASS / 05 NOV 2026</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-foot">
+        <span class="hero-scroll">SCROLL TO OPEN THE FILE <span aria-hidden="true">↓</span></span>
+        <span class="hero-date">LATEST ENTRY / 11 NOV 2026</span>
+      </div>
+
+      <a class="hero-side" href="#changes" aria-label="Jump to the latest changes">
+        <span>FILE 17B</span>
+        <span class="hero-side-line" aria-hidden="true"></span>
+        <span>CATRAMES.COM</span>
+      </a>
     </section>
 
-    <section class="record" aria-label="Archive note">
-      <div class="record-head"><span>ATTACHED NOTE</span><span>FILE 000 / UNSORTED</span></div>
-      <div class="record-body">
-        <span class="quote-mark">“</span>
-        <blockquote>The cards were real. I think. There was one with a mark on it, though nobody could agree what the mark meant.</blockquote>
-        <div class="record-meta"><span>— UNDATED STATEMENT</span><span class="redacted">[ SOURCE REMOVED ]</span></div>
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track">
+        <div class="ticker-group">
+          <span>RULES REVISION 11 NOV 2026</span><span class="tick-dot"></span>
+          <span>410 RECORD CLOSED</span><span class="tick-dot"></span>
+          <span>1V1 REFERENCE MODE</span><span class="tick-dot"></span>
+          <span>FFA IN TESTING</span><span class="tick-dot"></span>
+          <span>MAIN DECK 20–30 / TESTING</span><span class="tick-dot"></span>
+          <span>WITHERING ROSE / SPIKES 1</span><span class="tick-dot"></span>
+          <span>TIMELINE OPEN</span><span class="tick-dot"></span>
+        </div>
+        <div class="ticker-group">
+          <span>RULES REVISION 11 NOV 2026</span><span class="tick-dot"></span>
+          <span>410 RECORD CLOSED</span><span class="tick-dot"></span>
+          <span>1V1 REFERENCE MODE</span><span class="tick-dot"></span>
+          <span>FFA IN TESTING</span><span class="tick-dot"></span>
+          <span>MAIN DECK 20–30 / TESTING</span><span class="tick-dot"></span>
+          <span>WITHERING ROSE / SPIKES 1</span><span class="tick-dot"></span>
+          <span>TIMELINE OPEN</span><span class="tick-dot"></span>
+        </div>
       </div>
-    </section>
-
-    <section class="bottom-note">
-      <p>Some details may have been altered by the process of remembering.</p>
-      <a href="#" id="detailsLink">VIEW CORRECTION <span>↗</span></a>
-    </section>
-    <div class="correction" id="correction" hidden>
-      <span class="small-label">CORRECTION 01</span>
-      <p>There is no evidence that this page was here yesterday.</p>
-      <button id="closeCorrection" type="button">CLOSE NOTE <span>×</span></button>
     </div>
 
-    <button class="secret-trigger" id="secretTrigger" type="button" aria-expanded="false">
-      <span class="secret-mark">∎</span> FILE 17B
-    </button>
+    <section class="section section-changes" id="changes" aria-labelledby="changesTitle">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="eyebrow">01 / LATEST TRANSMISSION</span>
+          <div class="section-head-row">
+            <h2 id="changesTitle">What changed since the last record.</h2>
+            <span class="section-date">11 NOV 2026</span>
+          </div>
+          <p class="section-lead">The 410 placeholder is retired. This is the diff between the last public record (05 Nov 2026) and the current build (11 Nov 2026).</p>
+        </div>
 
-    <section class="dossier" id="dossier" hidden aria-labelledby="dossierTitle">
-      <div class="dossier-head">
-        <span class="small-label">RECOVERED PROJECT FILE</span>
-        <span class="dossier-code">CATRAMES / INTERNAL</span>
-      </div>
-      <div class="dossier-intro">
-        <p class="eyebrow">A DARK RETRO-HORROR TACTICAL CARD GAME</p>
-        <h2 id="dossierTitle">What was being built.</h2>
-        <p>Catrames is a real-time tactical card game played across a physical 3D table. Players sacrifice units, manage shrinking turn time and fight to break an opponent's Soul Orb before the table goes quiet.</p>
-      </div>
+        <div class="change-grid">
+          <article class="change-card reveal" style="--delay:.02s">
+            <div class="change-top">
+              <span class="diff-tag diff-tag-remove" aria-label="Removed">−</span>
+              <span class="change-meta">09 OCT → 11 NOV</span>
+            </div>
+            <h3>410 record closed</h3>
+            <p>The old “It never did exist” page is gone. The project file is now the front door, not a hidden trigger.</p>
+          </article>
 
-      <div class="dossier-grid">
-        <article>
-          <span class="dossier-number">01</span>
-          <h3>The core loop</h3>
-          <p>Draw from either the Main Deck or the unlimited Filler Deck. Spend Souls by sacrificing units, place your cards on a 4 × 4 battlefield, then use attacks, items and abilities before ringing the Desk Bell.</p>
-        </article>
-        <article>
-          <span class="dossier-number">02</span>
-          <h3>The pressure</h3>
-          <p>Every round and every point of damage makes the next turn shorter. The Soul Orb records the loss with cracks, colour and shaking feedback. At ten seconds, another hit can end the match.</p>
-        </article>
-        <article>
-          <span class="dossier-number">03</span>
-          <h3>The world</h3>
-          <p>The team is building a strange, low-detail space inspired by PS1-era horror, CRT interference and haunted tabletop games. It should feel tactile, readable and slightly unreliable.</p>
-        </article>
-      </div>
+          <article class="change-card reveal" style="--delay:.06s">
+            <div class="change-top">
+              <span class="diff-tag diff-tag-change" aria-label="Changed">~</span>
+              <span class="change-meta">REVISED / 11 NOV</span>
+            </div>
+            <h3>Rules guide</h3>
+            <p>Board, turn formula, sacrifice economy, combat keywords and the Withering Rose are documented in one public reference.</p>
+          </article>
 
-      <div class="process">
-        <div class="process-title">
-          <span class="small-label">CHRONOLOGY / WORKING PROCESS</span>
-          <span class="dossier-code">STATUS: IN PROGRESS</span>
-        </div>
-        <div class="timeline">
-          <article class="timeline-item">
-            <div class="timeline-copy"><span class="dossier-number">01 / FIRST CONTACT</span><h3>Opening the menu</h3><p>The project first presents itself through the main menu: the Catrames identity, navigation and the first glimpse of the world around the player.</p></div>
-            <img src="pics/Picture4.png" alt="Catrames main menu interface">
+          <article class="change-card reveal" style="--delay:.1s">
+            <div class="change-top">
+              <span class="diff-tag diff-tag-change" aria-label="Changed">~</span>
+              <span class="change-meta">REVISED / 11 NOV</span>
+            </div>
+            <h3>Timer formula</h3>
+            <p>The timer is recalculated every turn: 3:00 base, −10% of base per completed round, −5% per damage taken, floor 10s.</p>
           </article>
-          <article class="timeline-item timeline-item-reverse">
-            <div class="timeline-copy"><span class="dossier-number">02 / ENTERING THE WORLD</span><h3>Finding the table</h3><p>After the menu, the player enters the physical game location: a wooden table, a campfire, a dark forest and a place to begin the match.</p></div>
-            <img src="pics/Picture1.png" alt="Catrames table game location">
-          </article>
-          <article class="timeline-item">
-            <div class="timeline-copy"><span class="dossier-number">03 / BLOCKOUT</span><h3>Building the atmosphere</h3><p>With the location established, the team tested scale, composition and the empty space surrounding the play area.</p></div>
-            <img src="pics/Picture2.png" alt="Catrames environment blockout">
-          </article>
-          <article class="timeline-item timeline-item-reverse">
-            <div class="timeline-copy"><span class="dossier-number">04 / WORLD PASS</span><h3>Making the world feel lost</h3><p>Low-detail trees, fog and limited light shaped the PS1-inspired visual language around the match.</p></div>
-            <img src="pics/Picture3.png" alt="Catrames forest environment">
-          </article>
-          <article class="timeline-item">
-            <div class="timeline-copy"><span class="dossier-number">05 / IDENTITY</span><h3>Giving it a name</h3><p>The logo, title screen and CRT treatment became the final layer: a game that feels like a recovered object from another machine.</p></div>
-            <img src="pics/Picture5.png" alt="Catrames title screen">
-          </article>
-        </div>
-      </div>
 
-      <div class="rules">
-        <div class="process-title">
-          <span class="small-label">RULES / MATCH FLOW</span>
-          <span class="dossier-code">SOURCE: SYSTEM SPECIFICATION</span>
-        </div>
-        <div class="rules-intro">
-          <h3>Every move is checked, paid for and remembered.</h3>
-          <p>The board is split into front and back rows. A turn always begins with a draw, continues with at least one action, and ends when the player rings the bell. As rounds pass, the available time shrinks until an exposed hit can break the Soul Orb.</p>
-        </div>
-        <div class="rule-diagrams">
-          <figure class="rule-diagram">
-            <img src="pics/image0.jpg" alt="Catrames board layout showing front rows, back rows and the Soul Orb">
-            <figcaption><span class="dossier-number">RULE 01 / BOARD</span><strong>Front rows block. Back rows support.</strong><p>Each player controls two rows of four slots. Attacks move through the front row first; an unblocked hit reaches the Soul Orb.</p></figcaption>
-          </figure>
-          <figure class="rule-diagram">
-            <img src="pics/image1.jpg" alt="Catrames turn order and shrinking turn timer">
-            <figcaption><span class="dossier-number">RULE 02 / TURN</span><strong>Draw, act, ring the bell.</strong><p>Players must draw first and make at least one action before passing the turn. The timer drops from 3:00 as the match progresses; at 10 seconds, any hit loses the game.</p></figcaption>
-          </figure>
-        </div>
-        <div class="flow-grid">
-          <article class="flow-card">
-            <span class="dossier-number">FLOW 01 / PLAY DEFAULT GAME</span>
-            <h3>From draw to result</h3>
-            <ol>
-              <li><span>01</span>Match starts: confirm players, mode and rules.</li>
-              <li><span>02</span>Deal five Main Deck cards and set the Soul Orb timer.</li>
-              <li><span>03</span>Choose a card or a Withering Rose.</li>
-              <li><span>04</span>Check legality; reject invalid moves without changing state.</li>
-              <li><span>05</span>Pay the required sacrifice, apply the move and synchronize.</li>
-              <li><span>06</span>Ring the Desk Bell after at least one action, or lose when time expires.</li>
-              <li><span>07</span>Check the Soul Orb and winning condition, then advance clockwise.</li>
-            </ol>
+          <article class="change-card reveal" style="--delay:.02s">
+            <div class="change-top">
+              <span class="diff-tag diff-tag-change" aria-label="Changed">~</span>
+              <span class="change-meta">SCOPE / 11 NOV</span>
+            </div>
+            <h3>FFA moved to testing</h3>
+            <p>Four-player free-for-all is no longer presented as final. The guide now treats 1v1 as the reference mode.</p>
           </article>
-          <article class="flow-card">
-            <span class="dossier-number">FLOW 02 / MATCH RESOLUTION</span>
-            <h3>One authoritative state</h3>
-            <ol>
-              <li><span>01</span>Client submits the selected card, target and action.</li>
-              <li><span>02</span>The best-ping host validates souls, placement, target and turn.</li>
-              <li><span>03</span>Resolve costs, deployment effects, auras and the damage pipeline.</li>
-              <li><span>04</span>Apply statuses, deaths, triggers and automatic row rotation.</li>
-              <li><span>05</span>Check Soul Orb and win conditions.</li>
-              <li><span>06</span>Broadcast the incremented state snapshot to every peer.</li>
-              <li><span>07</span>If the host disconnects, wait 30 seconds, transfer authority and continue from the latest valid snapshot.</li>
-            </ol>
+
+          <article class="change-card reveal" style="--delay:.06s">
+            <div class="change-top">
+              <span class="diff-tag diff-tag-add" aria-label="Added">+</span>
+              <span class="change-meta">NEW / 11 NOV</span>
+            </div>
+            <h3>Timeline selector</h3>
+            <p>Every public state of the site can now be inspected by date, with the current state shown beside it.</p>
           </article>
+
+          <article class="change-card reveal" style="--delay:.1s">
+            <div class="change-top">
+              <span class="diff-tag diff-tag-add" aria-label="Added">+</span>
+              <span class="change-meta">NEW / 11 NOV</span>
+            </div>
+            <h3>Motion pass</h3>
+            <p>CRT scanlines, parallax, staggered reveals and a reactive Soul Orb preview now carry the archival tone.</p>
+          </article>
+        </div>
+
+        <div class="compare reveal">
+          <div class="compare-card compare-card-old">
+            <div class="compare-label"><span>THEN / 09 OCT 2026</span><span>RECORD 000</span></div>
+            <div class="compare-terminal">
+              <span class="terminal-line">ARCHIVE ENTRY 00—17 / STATUS: INCOMPLETE</span>
+              <strong>410</strong>
+              <p>It never<br>did exist.</p>
+              <span class="terminal-foot">NO RULES / NO IMAGES / NO PROJECT FILE</span>
+            </div>
+          </div>
+
+          <div class="compare-arrow" aria-hidden="true">→</div>
+
+          <div class="compare-card compare-card-new">
+            <div class="compare-label"><span>NOW / 11 NOV 2026</span><span>FILE 17B</span></div>
+            <div class="compare-visual">
+              <img src="pics/title.jpg" alt="Catrames title screen" width="1015" height="560" loading="lazy" decoding="async">
+              <div class="compare-copy">
+                <span>CATRAMES</span>
+                <strong>The table<br>is set.</strong>
+                <span>RULES / TIMELINE / PROJECT FILE</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="diff-legend reveal">
+          <span class="diff-legend-title">LEGEND</span>
+          <span><b class="diff-tag diff-tag-add">+</b> added</span>
+          <span><b class="diff-tag diff-tag-change">~</b> changed</span>
+          <span><b class="diff-tag diff-tag-remove">−</b> removed</span>
+          <span class="diff-legend-note">Verified against the public git history and the live deployment.</span>
         </div>
       </div>
+    </section>
 
-      <div class="dossier-footer">
-        <div>
-          <span class="small-label">PROJECT NOTES</span>
-          <p>Multiplayer card-game platform · 1v1 and four-player free-for-all · persistent decks · community editor planned.</p>
+    <section class="section section-game" id="game" aria-labelledby="gameTitle">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="eyebrow">02 / THE GAME</span>
+          <div class="section-head-row">
+            <h2 id="gameTitle">Three pressures. One table.</h2>
+          </div>
+          <p class="section-lead">Catrames is built around a physical, tactile table: cards you place, units you sacrifice, and a clock that keeps taking itself away.</p>
         </div>
-        <div class="tech-list">
-          <span>GODOT 4.7</span><span>C# / .NET</span><span>PS1 / CRT</span>
+
+        <div class="game-grid">
+          <article class="game-card game-card-wide reveal tilt">
+            <div class="game-media">
+              <img src="pics/menu.jpg" alt="Catrames main menu with the game logo, navigation and news panel" width="1400" height="771" loading="lazy" decoding="async">
+              <span class="media-tag">CURRENT BUILD / MAIN MENU</span>
+            </div>
+            <div class="game-copy">
+              <span class="card-index">01 / CORE LOOP</span>
+              <h3>Draw. Sacrifice. Place. Ring.</h3>
+              <p>Draw exactly one card from the Main Deck or the unlimited Filler Deck. Spend souls by sacrificing units. Place your cards on a 4×4 battlefield, then use attacks, items and abilities before ringing the Desk Bell.</p>
+              <ul class="mini-list">
+                <li>Main Deck or unlimited Filler Deck</li>
+                <li>Souls are paid by sacrificing units</li>
+                <li>Front rows block; back rows support</li>
+                <li>Ring the Desk Bell to pass the turn</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="game-card reveal tilt">
+            <div class="orb-demo">
+              <div class="orb-halo" aria-hidden="true"></div>
+              <button class="soul-orb" id="soulOrb" type="button" aria-label="Strike the Soul Orb preview">
+                <span class="orb-core" aria-hidden="true"></span>
+                <span class="orb-crack orb-crack-1" aria-hidden="true"></span>
+                <span class="orb-crack orb-crack-2" aria-hidden="true"></span>
+                <span class="orb-crack orb-crack-3" aria-hidden="true"></span>
+              </button>
+              <div class="orb-readout" aria-live="polite">
+                <span>SOUL ORB / VISUAL PREVIEW</span>
+                <strong id="orbState">STABLE</strong>
+              </div>
+              <p class="orb-hint">Click to test a visual state. The orb has no HP; it tracks remaining time and accumulated damage.</p>
+            </div>
+            <div class="game-copy">
+              <span class="card-index">02 / PRESSURE</span>
+              <h3>The clock only gets shorter.</h3>
+              <p>The clock is recalculated at the start of every turn: 3:00 base, minus 10% of base per completed round, minus 5% of base per damage taken. No turn is shorter than 10 seconds. At 10 seconds or less, any damage taken ends the match.</p>
+            </div>
+          </article>
+
+          <article class="game-card reveal tilt">
+            <div class="game-media">
+              <img src="pics/forest.jpg" alt="Catrames low-detail forest environment with fog and a campfire" width="573" height="310" loading="lazy" decoding="async">
+              <span class="media-tag">WORLD PASS / FOREST</span>
+            </div>
+            <div class="game-copy">
+              <span class="card-index">03 / THE WORLD</span>
+              <h3>Recovered, not restored.</h3>
+              <p>A wooden table, a campfire, a dark forest and CRT interference. The world is built from low-detail PS1-era shapes so it feels tactile, readable and slightly unreliable.</p>
+            </div>
+          </article>
         </div>
       </div>
+    </section>
 
+    <section class="section section-timeline" id="timeline" aria-labelledby="timelineTitle">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="eyebrow">03 / CHRONOLOGY</span>
+          <div class="section-head-row">
+            <h2 id="timelineTitle">Scrub the record.</h2>
+            <span class="section-date">04 PUBLIC STATES</span>
+          </div>
+          <p class="section-lead">Select a date to see what the site was, and what it is now. Dates are verified from the public git history and the live deployment.</p>
+        </div>
+
+        <div class="timeline-widget reveal">
+          <div class="timeline-nav-wrap">
+            <div class="timeline-nav" id="timelineNav" role="tablist" aria-label="Timeline dates">
+              <button class="timeline-node" id="tl-0" type="button" role="tab" aria-selected="false" aria-controls="timelinePanel" data-index="0">
+                <span class="node-date">09 OCT 2026</span>
+                <span class="node-label">RECORD 000</span>
+              </button>
+              <button class="timeline-node" id="tl-1" type="button" role="tab" aria-selected="false" aria-controls="timelinePanel" data-index="1">
+                <span class="node-date">10 OCT 2026</span>
+                <span class="node-label">DOMAIN</span>
+              </button>
+              <button class="timeline-node" id="tl-2" type="button" role="tab" aria-selected="false" aria-controls="timelinePanel" data-index="2">
+                <span class="node-date">05 NOV 2026</span>
+                <span class="node-label">FILE 17B</span>
+              </button>
+              <button class="timeline-node" id="tl-3" type="button" role="tab" aria-selected="true" aria-controls="timelinePanel" data-index="3" tabindex="0">
+                <span class="node-date">11 NOV 2026</span>
+                <span class="node-label">NOW</span>
+              </button>
+            </div>
+            <div class="timeline-line" aria-hidden="true"><span id="timelineProgress"></span></div>
+          </div>
+
+          <div class="timeline-panel" id="timelinePanel" role="tabpanel" aria-live="polite" aria-labelledby="tl-3">
+            <div class="timeline-panel-head">
+              <div class="timeline-panel-title">
+                <span class="eyebrow">CURRENT STATE / 11 NOV 2026</span>
+                <h3>The record is open</h3>
+                <p>The 410 placeholder is gone. The site leads with the game, a revised rules guide and a timeline selector.</p>
+              </div>
+              <span class="timeline-status timeline-status-current"><span class="status-dot"></span> CURRENT</span>
+            </div>
+            <div class="timeline-compare">
+              <figure class="timeline-image">
+                <img src="pics/menu.jpg" alt="Catrames main menu in the current build" width="1400" height="771" loading="lazy" decoding="async">
+                <figcaption>CURRENT BUILD / MAIN MENU</figcaption>
+              </figure>
+              <div class="timeline-columns">
+                <div class="timeline-col">
+                  <span class="col-label">NOW</span>
+                  <ul>
+                    <li>410 record closed — the project file is the front door</li>
+                    <li>Public rules guide revised for 1v1</li>
+                    <li>Turn time: 180s base, −10% per round, −5% per damage</li>
+                    <li>Withering Rose: 0 souls, 0 ATK, 1 HP, Spikes 1</li>
+                    <li>Sacrifice economy: 1 soul per unit</li>
+                    <li>Timeline selector + motion pass</li>
+                    <li>Four-player FFA marked as testing</li>
+                  </ul>
+                </div>
+                <div class="timeline-col">
+                  <span class="col-label">NEXT / PLANNED</span>
+                  <ul>
+                    <li>Main deck limits and copy caps</li>
+                    <li>PvP handling of card levels</li>
+                    <li>Timer tuning against the 15-minute target</li>
+                    <li>FFA status timing and turn boundaries</li>
+                    <li>Playable build and devlog</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="timeline-panel-foot">
+              <span class="timeline-delta">CURRENT STATE</span>
+              <div class="timeline-controls">
+                <button type="button" data-tl-prev disabled>← PREV</button>
+                <button type="button" data-tl-next disabled>NEXT →</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-rules" id="rules" aria-labelledby="rulesTitle">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="eyebrow">04 / RULES GUIDE</span>
+          <div class="section-head-row">
+            <h2 id="rulesTitle">Every move is checked, paid for and remembered.</h2>
+            <span class="section-date">REV. 11 NOV 2026</span>
+          </div>
+          <p class="section-lead">The public rules reference for 1v1, revised from the current design document. Values described as proposals are playtest starting points and may change between builds.</p>
+        </div>
+
+        <div class="rules-layout">
+          <aside class="rules-index reveal" aria-label="Rules contents">
+            <span class="rules-index-title">CONTENTS</span>
+            <a class="rules-link is-active" href="#rule-short">01 / The short version</a>
+            <a class="rules-link" href="#rule-board">02 / The board</a>
+            <a class="rules-link" href="#rule-turn">03 / A turn</a>
+            <a class="rules-link" href="#rule-cards">04 / Cards &amp; souls</a>
+            <a class="rules-link" href="#rule-rose">05 / Withering Rose</a>
+            <a class="rules-link" href="#rule-keywords">06 / Combat keywords</a>
+            <a class="rules-link" href="#rule-win">07 / Winning &amp; losing</a>
+            <a class="rules-link" href="#rule-open">08 / Open questions</a>
+            <div class="rules-index-note">
+              <span>LAST REVISED</span>
+              <strong>11 NOV 2026</strong>
+              <span>Replaces the 05 Nov draft.</span>
+            </div>
+          </aside>
+
+          <div class="rules-content">
+            <article class="rule-block reveal" id="rule-short">
+              <div class="rule-block-head">
+                <span class="rule-num">01</span>
+                <h3>The short version</h3>
+              </div>
+              <p class="rule-lead">A turn always begins with a mandatory draw, then any number of plays or actions, and ends when you ring the Desk Bell. Every move is checked, paid for and remembered.</p>
+
+              <div class="step-grid">
+                <div class="step">
+                  <span>01</span>
+                  <strong>Draw first</strong>
+                  <p>Draw exactly one card from the Main Deck or the unlimited Filler Deck. The draw is mandatory.</p>
+                </div>
+                <div class="step">
+                  <span>02</span>
+                  <strong>Play or act</strong>
+                  <p>Play any number of cards you can afford, attack, use items or activate abilities.</p>
+                </div>
+                <div class="step">
+                  <span>03</span>
+                  <strong>Pay in souls</strong>
+                  <p>Each sacrificed unit grants 1 Soul. Invalid moves are rejected without changing the state.</p>
+                </div>
+                <div class="step">
+                  <span>04</span>
+                  <strong>Ring the bell</strong>
+                  <p>The Desk Bell ends your turn. The orb keeps its cracks and colour until your next turn.</p>
+                </div>
+              </div>
+
+              <div class="callout">
+                <span class="callout-label">CLOCK / TURN FORMULA</span>
+                <p>Turn time is recalculated at the start of every turn: <strong>180s base</strong>, minus <strong>10% of base per completed round</strong>, minus <strong>5% of base per damage taken</strong>, with a <strong>10-second floor</strong>. Damage taken during the opponent's turn applies to your next turn. At <strong>10 seconds or less</strong>, any damage shatters the orb. If the clock reaches <strong>0:00</strong>, the active player loses the match.</p>
+              </div>
+            </article>
+
+            <article class="rule-block reveal" id="rule-board">
+              <div class="rule-block-head">
+                <span class="rule-num">02</span>
+                <h3>The board</h3>
+              </div>
+              <p>Each player controls two rows of four slots. The front row blocks attacks; the back row supports, flies and enables abilities. An attack moves through the front row first, and an unblocked hit reaches the player, adding to their damage total. The orb displays that pressure; it is not a health bar.</p>
+
+              <figure class="rule-figure">
+                <img src="pics/image0.jpg" alt="Diagram of the Catrames board: opponent back and front rows, your front and back rows, and the Soul Orb below" width="1206" height="1114" loading="lazy" decoding="async">
+                <figcaption>RULE 01 / BOARD — front rows block, back rows support, unblocked hits reach the player.</figcaption>
+              </figure>
+
+              <div class="rule-split">
+                <div>
+                  <span class="rule-kicker">FRONT ROW</span>
+                  <p>Blocks attacks. A unit here must be dealt with before an attack can pass through its lane.</p>
+                </div>
+                <div>
+                  <span class="rule-kicker">BACK ROW</span>
+                  <p>Support, flyers and abilities. Back-row units are safer, but they do not block by default.</p>
+                </div>
+                <div>
+                  <span class="rule-kicker">SOUL ORB</span>
+                  <p>Unblocked hits raise the player's damage total and shorten their future turns. Cracks and colour show the pressure; the orb has no HP.</p>
+                </div>
+              </div>
+
+              <div class="callout">
+                <span class="callout-label">VANGUARD ROTATION</span>
+                <p>When a front-row unit dies or is sacrificed, the unit directly behind it advances into the empty slot. <strong>Flying</strong> units are exempt and stay in the back row unless their controller moves them.</p>
+              </div>
+            </article>
+
+            <article class="rule-block reveal" id="rule-turn">
+              <div class="rule-block-head">
+                <span class="rule-num">03</span>
+                <h3>A turn</h3>
+              </div>
+              <p>Draw one card, play or act, ring the bell. The orb shows your remaining time; the timer itself is recalculated at the start of each turn from completed rounds and damage taken.</p>
+
+              <figure class="rule-figure rule-figure-formula">
+                <div class="formula-card">
+                  <div class="formula-head">
+                    <span>TURN TIME / FORMULA</span>
+                    <span>RECALCULATED EVERY TURN</span>
+                  </div>
+                  <div class="formula-main">
+                    <span class="formula-eq"><em>T</em> = 180 × (1 − 0.10 × <em>R</em> − 0.05 × <em>D</em>)</span>
+                    <span class="formula-floor">MINIMUM 10 SECONDS</span>
+                  </div>
+                  <div class="formula-legend">
+                    <div><strong>180</strong><span>base seconds / 3:00</span></div>
+                    <div><strong>R</strong><span>completed rounds</span></div>
+                    <div><strong>D</strong><span>damage taken this match</span></div>
+                  </div>
+                  <div class="formula-example">
+                    <span>ROUND 3 / 12 DAMAGE TAKEN</span>
+                    <p>180 × (1 − 0.30 − 0.60) = <strong>18s</strong></p>
+                  </div>
+                </div>
+                <figcaption>RULE 02 / TURN — draw one card, play or act, ring the bell. Damage taken while your clock is frozen applies to your next turn.</figcaption>
+              </figure>
+
+              <ol class="rule-steps">
+                <li><span>01</span><div><strong>Draw.</strong> Take exactly one card from the Main Deck, or draw a Withering Rose from the unlimited Filler Deck.</div></li>
+                <li><span>02</span><div><strong>Play.</strong> Play any number of cards you can afford while board space and souls allow. Items are limited to 3 held.</div></li>
+                <li><span>03</span><div><strong>Check.</strong> Validate placement, target, turn and cost. An invalid move does not change the state.</div></li>
+                <li><span>04</span><div><strong>Pay.</strong> Sacrifice units to cover the soul cost. Each sacrificed unit grants exactly 1 Soul.</div></li>
+                <li><span>05</span><div><strong>Resolve.</strong> Apply deployment effects, auras, damage, statuses, deaths and vanguard rotation.</div></li>
+                <li><span>06</span><div><strong>Ring.</strong> Ring the Desk Bell to pass. If the clock reaches 0:00 first, you lose the match.</div></li>
+              </ol>
+
+              <div class="callout">
+                <span class="callout-label">ITEMS / UP TO 3</span>
+                <p>Every 2–3 turns, choose 1 of 3 consumable items. You can hold up to 3 and use any number of them on your turn.</p>
+              </div>
+            </article>
+
+            <article class="rule-block reveal" id="rule-cards">
+              <div class="rule-block-head">
+                <span class="rule-num">04</span>
+                <h3>Cards &amp; souls</h3>
+              </div>
+              <p>The economy is built on sacrifice. Souls are not a separate resource you collect from a track; they are paid by giving up units already on the table.</p>
+
+              <div class="fact-grid">
+                <div class="fact">
+                  <span class="fact-label">DECK SIZE</span>
+                  <strong>20–30</strong>
+                  <p>cards / proposal</p>
+                </div>
+                <div class="fact">
+                  <span class="fact-label">DRAW / TURN</span>
+                  <strong>1</strong>
+                  <p>card each turn</p>
+                </div>
+                <div class="fact">
+                  <span class="fact-label">FILLER DECK</span>
+                  <strong>∞</strong>
+                  <p>Withering Rose source</p>
+                </div>
+                <div class="fact">
+                  <span class="fact-label">BOARD</span>
+                  <strong>4×4</strong>
+                  <p>two rows of four per player</p>
+                </div>
+              </div>
+
+              <div class="rule-columns">
+                <div>
+                  <span class="rule-kicker">MAIN DECK</span>
+                  <p>Your constructed cards: 20–30 cards as a working proposal. Copy limits are still being tested (currently 2 Common/Uncommon, 1 Rare/Premium). When the Main Deck runs out, the Filler Deck remains available.</p>
+                </div>
+                <div>
+                  <span class="rule-kicker">FILLER DECK</span>
+                  <p>Unlimited. It provides the Withering Rose and keeps the table playable when the Main Deck is empty or a cheap body is needed. Filler cards cannot go in the Main Deck.</p>
+                </div>
+                <div>
+                  <span class="rule-kicker">SOULS</span>
+                  <p>Each sacrificed unit grants exactly 1 Soul. A card's soul cost is derived from its net point value, including backlash, and caps at 4. Invalid payments are rejected before the state changes.</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="rule-block reveal" id="rule-rose">
+              <div class="rule-block-head">
+                <span class="rule-num">05</span>
+                <h3>Withering Rose</h3>
+              </div>
+              <p>A filler-deck unit and the cheapest body on the table. It does no damage, but a basic attack is reduced by 1 and the attacker takes 1 back.</p>
+
+              <div class="rose-layout">
+                <div class="rose-card" aria-label="Withering Rose card: filler deck unit, 0 souls, 0 ATK, 1 HP, Spikes 1">
+                  <div class="rose-card-head"><span>FILLER DECK</span><span>UNIT</span></div>
+                  <div class="rose-art" aria-hidden="true">
+                    <svg viewBox="0 0 160 200" role="img" aria-label="Line drawing of a rose">
+                      <g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M80 178V104"/>
+                        <path d="M80 152c-14-1-24-9-28-21 14-1 24 6 28 21Z"/>
+                        <path d="M80 134c12-2 20-9 24-20-12-1-21 6-24 20Z"/>
+                        <path d="M74 166l-7-9M86 146l7-9M73 120l-6-8"/>
+                        <path d="M80 56c-9-9-24-4-24 8 0 11 10 20 24 20s24-9 24-20c0-12-15-17-24-8"/>
+                        <path d="M80 48c-17-7-34 4-34 20 0 18 15 33 34 33s34-15 34-33c0-16-17-27-34-20"/>
+                        <path d="M80 48c-18 5-27 19-22 33 5 13 21 20 34 13"/>
+                        <path d="M80 48c18 5 27 19 22 33-5 13-21 20-34 13"/>
+                        <path d="M65 65c2-8 9-12 16-9 7 4 8 12 3 18-5 5-13 5-18 1"/>
+                        <path d="M95 65c-2-8-9-12-16-9-7 4-8 12-3 18 5 5 13 5 18 1"/>
+                        <path d="M80 83c-7-1-11-8-8-14"/>
+                      </g>
+                    </svg>
+                  </div>
+                  <div class="rose-card-body">
+                    <h4>Withering Rose</h4>
+                    <p class="rose-effect">SPIKES 1 — absorbs 1 damage from a basic attack and deals 1 back.</p>
+                    <div class="rose-stats">
+                      <span><b>0</b> souls</span>
+                      <span><b>0</b> ATK</span>
+                      <span><b>1</b> HP</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="rose-copy">
+                  <p class="rule-lead">A 0-soul, 0-ATK, 1-HP filler unit. It will not win a fight, but a basic attack is reduced by 1 and the attacker takes 1 back.</p>
+                  <ul class="rule-list">
+                    <li><span>COST</span> 0 souls. Deploy it on any empty slot, in either row, on any turn.</li>
+                    <li><span>ATTACK</span> 0. It cannot damage the opposing player on its own.</li>
+                    <li><span>HEALTH</span> 1 HP. Almost anything can remove it.</li>
+                    <li><span>SPIKES</span> 1. A basic attack is reduced by 1 and the attacker takes 1. Ability damage ignores Spikes by default.</li>
+                    <li><span>SACRIFICE</span> When sacrificed, it grants 1 Soul like any other unit.</li>
+                    <li><span>SOURCE</span> Unlimited Filler Deck. It is never part of the Main Deck or the collection.</li>
+                  </ul>
+                  <p class="rule-note">Timing note: Spikes resolve before the defender loses HP. Blessed attackers still take the retaliation, and deaths are checked after the attack finishes.</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="rule-block reveal" id="rule-keywords">
+              <div class="rule-block-head">
+                <span class="rule-num">06</span>
+                <h3>Combat keywords</h3>
+              </div>
+              <p>Keywords are printed in plain language on the card face. Damage resolves in the same order on every client, so a defense always answers an attack the same way.</p>
+
+              <div class="keyword-grid">
+                <div class="keyword-card">
+                  <span class="rule-kicker">SPIKES N</span>
+                  <p>Absorbs up to N damage from a basic attack and returns the same amount to the attacker. Ability damage ignores Spikes by default.</p>
+                </div>
+                <div class="keyword-card">
+                  <span class="rule-kicker">ARMOR / SHIELD / BARRIER</span>
+                  <p>Armor reduces each incoming hit by N. Shield absorbs up to N per hit. Barrier is a one-time pool that disappears when spent.</p>
+                </div>
+                <div class="keyword-card">
+                  <span class="rule-kicker">FLYING / RANGED</span>
+                  <p>Flying bypasses the front row and can strike the back row or the player. Ranged and flying units can hit flyers; melee cannot.</p>
+                </div>
+                <div class="keyword-card">
+                  <span class="rule-kicker">BLESSED</span>
+                  <p>Ignores armor, shield and barrier. It does not stop Spikes retaliation, so cheap filler bodies remain a real answer.</p>
+                </div>
+              </div>
+
+              <div class="callout">
+                <span class="callout-label">DAMAGE ORDER</span>
+                <p><strong>Blessed</strong> check → <strong>barrier → shield → armor</strong> → <strong>Spikes</strong> (basic attacks only) → HP loss → death and trigger checks.</p>
+              </div>
+            </article>
+
+            <article class="rule-block reveal" id="rule-win">
+              <div class="rule-block-head">
+                <span class="rule-num">07</span>
+                <h3>Winning &amp; losing</h3>
+              </div>
+              <p>There is no orb HP to grind down. Damage raises the opponent's damage total and shortens their future turns. A player loses at 0:00, or as soon as they take damage with 10 seconds or less remaining.</p>
+
+              <div class="win-grid">
+                <div class="win-card">
+                  <span class="win-tag">WIN</span>
+                  <h4>Run out the clock</h4>
+                  <p>Every point of damage shortens the opponent's next turn. If their timer reaches 0:00, the Soul Orb shatters and they lose.</p>
+                </div>
+                <div class="win-card">
+                  <span class="win-tag win-tag-danger">WIN</span>
+                  <h4>Strike a low-time orb</h4>
+                  <p>At 10 seconds or less, any damage shatters the orb immediately — even while your clock is frozen during the opponent's turn.</p>
+                </div>
+                <div class="win-card">
+                  <span class="win-tag win-tag-muted">DISPLAY</span>
+                  <h4>Not a health bar</h4>
+                  <p>Cracks, colour and shaking track time and damage only. Spikes never damage players or reduce their time.</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="rule-block rule-block-open reveal" id="rule-open">
+              <div class="rule-block-head">
+                <span class="rule-num">08</span>
+                <h3>Open questions</h3>
+              </div>
+              <p class="rule-lead">These are public design questions, not hidden rules. Proposals are playtest starting points, not locked values.</p>
+
+              <div class="questions-list">
+                <div class="question">
+                  <span class="q-mark">?</span>
+                  <div><strong>Deck construction limits</strong><p>20–30 cards, 2 copies of Common/Uncommon and 1 Rare/Premium are proposals. The final deck rules are still open.</p></div>
+                </div>
+                <div class="question">
+                  <span class="q-mark">?</span>
+                  <div><strong>Match length and timer tuning</strong><p>The formula is a starting point, not a locked value. With no damage and full use of time, one player's turns total about 16.5 minutes in 1v1, so a match can run near 33 minutes against a 15-minute target.</p></div>
+                </div>
+                <div class="question">
+                  <span class="q-mark">?</span>
+                  <div><strong>PvP and card levels</strong><p>Should casual PvP normalise both players to the lower card level, use level brackets, or ignore levels entirely?</p></div>
+                </div>
+                <div class="question">
+                  <span class="q-mark">?</span>
+                  <div><strong>Four-player FFA</strong><p>Status timing, turn boundaries and the four-player layout are still being specified. The published reference is 1v1.</p></div>
+                </div>
+                <div class="question">
+                  <span class="q-mark">?</span>
+                  <div><strong>Community mode keywords</strong><p>Can mode creators define new keywords, or only combine the built-in vocabulary? The MVP recommendation is built-in only.</p></div>
+                </div>
+                <div class="question">
+                  <span class="q-mark">?</span>
+                  <div><strong>Progression model</strong><p>Card ownership, levels and currency are documented, but whether they belong in the MVP or in a post-launch update is unresolved.</p></div>
+                </div>
+              </div>
+
+              <div class="callout callout-warning">
+                <span class="callout-label">CORRECTIONS</span>
+                <p>The project file is open. If a rule here contradicts the build you are testing, the build wins and this page needs a correction.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-devlog" id="devlog" aria-labelledby="devlogTitle">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="eyebrow">05 / UNDER THE HOOD</span>
+          <div class="section-head-row">
+            <h2 id="devlogTitle">Built to feel recovered.</h2>
+          </div>
+          <p class="section-lead">A multiplayer card-game platform in Godot, with persistent decks and a planned community editor. The visual target is PS1-era horror filtered through a failing CRT.</p>
+        </div>
+
+        <div class="devlog-grid">
+          <div class="devlog-copy reveal">
+            <p>Catrames is being built as a 1v1 game first. The best-ping host validates souls, placement, targets and turn state; every peer receives an incremented state snapshot. If the host disconnects, authority waits 30 seconds before transferring to the next peer.</p>
+            <p>Four-player free-for-all is in testing and is not part of the reference rules yet. Persistent decks, a community editor and a playable public build are planned.</p>
+            <div class="tech-list">
+              <span>GODOT 4.7</span>
+              <span>C# / .NET</span>
+              <span>PS1 / CRT</span>
+              <span>HOST AUTHORITY</span>
+              <span>30S MIGRATION</span>
+              <span>PERSISTENT DECKS</span>
+              <span>COMMUNITY EDITOR / PLANNED</span>
+            </div>
+          </div>
+
+          <div class="devlog-facts reveal">
+            <div><span>ENGINE</span><strong>Godot 4.7</strong></div>
+            <div><span>LANGUAGE</span><strong>C# / .NET</strong></div>
+            <div><span>LOOK</span><strong>PS1 / CRT</strong></div>
+            <div><span>REFERENCE MODE</span><strong>1v1</strong></div>
+            <div><span>FFA</span><strong>In testing</strong></div>
+            <div><span>PUBLIC BUILD</span><strong>Not yet</strong></div>
+          </div>
+        </div>
+
+        <div class="gallery" aria-label="Catrames development chronology">
+          <article class="gallery-item reveal">
+            <img src="pics/menu.jpg" alt="Catrames main menu" width="1400" height="771" loading="lazy" decoding="async">
+            <div class="gallery-copy"><span>01 / FIRST CONTACT</span><h3>Opening the menu</h3><p>The identity, navigation and the first glimpse of the world.</p></div>
+          </article>
+          <article class="gallery-item reveal">
+            <img src="pics/table.jpg" alt="Catrames wooden table with campfire in a dark forest" width="449" height="252" loading="lazy" decoding="async">
+            <div class="gallery-copy"><span>02 / ENTERING THE WORLD</span><h3>Finding the table</h3><p>A wooden table, a campfire, a dark forest and a place to begin.</p></div>
+          </article>
+          <article class="gallery-item reveal">
+            <img src="pics/blockout.jpg" alt="Catrames environment blockout with a table and grid" width="441" height="269" loading="lazy" decoding="async">
+            <div class="gallery-copy"><span>03 / BLOCKOUT</span><h3>Building the atmosphere</h3><p>Scale, composition and the empty space around the play area.</p></div>
+          </article>
+          <article class="gallery-item reveal">
+            <img src="pics/forest.jpg" alt="Catrames low-detail forest with fog" width="573" height="310" loading="lazy" decoding="async">
+            <div class="gallery-copy"><span>04 / WORLD PASS</span><h3>Making the world feel lost</h3><p>Low-detail trees, fog and limited light shaped the PS1 language.</p></div>
+          </article>
+          <article class="gallery-item reveal">
+            <img src="pics/title.jpg" alt="Catrames title screen with CRT treatment" width="1015" height="560" loading="lazy" decoding="async">
+            <div class="gallery-copy"><span>05 / IDENTITY</span><h3>Giving it a name</h3><p>The logo, title screen and CRT treatment became the final layer.</p></div>
+          </article>
+        </div>
+      </div>
     </section>
   </main>
 
-  <footer>
-    <a class="brand" href="#top" aria-label="Catrames home"><img src="pics/logo_transparent.png" alt="Catrames"></a>
-    <span>NO FURTHER INFORMATION AVAILABLE.</span>
-    <span>© ???</span>
+  <footer class="site-footer">
+    <div class="footer-top">
+      <a class="footer-brand" href="#top" aria-label="Catrames home">
+        <img src="pics/banner.png" alt="Catrames" width="760" height="352" loading="lazy" decoding="async">
+      </a>
+      <p class="footer-tagline">A dark retro-horror tactical card game.<br>Played across a physical 3D table.</p>
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="#changes">Changes</a>
+        <a href="#game">Game</a>
+        <a href="#timeline">Timeline</a>
+        <a href="#rules">Rules</a>
+        <a href="#devlog">Under the hood</a>
+        <a href="https://github.com/Catramisu/catrames.com" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 CATRAMES / PROJECT FILE 17B</span>
+      <span>RULES LAST REVISED 11 NOV 2026</span>
+      <a href="#top">BACK TO TOP ↑</a>
+    </div>
   </footer>
-  <script src="script.js"></script>
+
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
+  <noscript>
+    <style>
+      .reveal { opacity: 1 !important; transform: none !important; filter: none !important; }
+    </style>
+  </noscript>
+
+  <script src="script.js" defer></script>
 </body>
 </html>
