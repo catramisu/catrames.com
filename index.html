@@ -4,18 +4,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#070808">
-  <meta name="description" content="Catrames is a turn-based tactical card game played across a physical 3D table. Read the revised rules, see what changed, and scrub the project timeline.">
+  <meta name="description" content="Catrames is a dark retro-horror tactical card game played across a physical 3D table — with a Steam friends panel, a four-player party lobby, invite notifications and 30+ illustrated cards.">
   <meta name="author" content="Catrames">
   <link rel="canonical" href="https://catrames.com/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Catrames">
   <meta property="og:title" content="Catrames — The table is set.">
-  <meta property="og:description" content="A dark retro-horror tactical card game. Revised rules, public changelog and a date-by-date project timeline.">
+  <meta property="og:description" content="A dark retro-horror tactical card game — Steam friends and a four-player party lobby, invite notifications and 30+ illustrated cards.">
   <meta property="og:url" content="https://catrames.com/">
   <meta property="og:image" content="https://catrames.com/pics/hero.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Catrames — The table is set.">
-  <meta name="twitter:description" content="A dark retro-horror tactical card game. Revised rules, public changelog and a date-by-date project timeline.">
+  <meta name="twitter:description" content="A dark retro-horror tactical card game — Steam friends and a four-player party lobby, invite notifications and 30+ illustrated cards.">
   <meta name="twitter:image" content="https://catrames.com/pics/hero.jpg">
   <title>Catrames — A Dark Retro-Horror Tactical Card Game</title>
   <link rel="icon" type="image/png" href="pics/favicon.png">
@@ -36,7 +36,9 @@
 
       <nav class="site-nav" id="siteNav" aria-label="Primary">
         <a href="#changes" data-nav="changes">Changes</a>
+        <a href="#progress" data-nav="progress">Progress</a>
         <a href="#game" data-nav="game">Game</a>
+        <a href="#cards" data-nav="cards">Cards</a>
         <a href="#timeline" data-nav="timeline">Timeline</a>
         <a href="#rules" data-nav="rules">Rules</a>
         <a href="#devlog" data-nav="devlog">Under the hood</a>
@@ -105,7 +107,7 @@
 
       <div class="hero-foot">
         <span class="hero-scroll">SCROLL TO OPEN THE FILE <span aria-hidden="true">↓</span></span>
-        <span class="hero-date">LATEST ENTRY / 11 NOV 2026</span>
+        <span class="hero-date">LATEST ENTRY / 19 NOV 2026</span>
       </div>
 
       <a class="hero-side" href="#changes" aria-label="Jump to the latest changes">
@@ -118,22 +120,24 @@
     <div class="ticker" aria-hidden="true">
       <div class="ticker-track">
         <div class="ticker-group">
-          <span>RULES REVISION 11 NOV 2026</span><span class="tick-dot"></span>
-          <span>410 RECORD CLOSED</span><span class="tick-dot"></span>
+          <span>BUILD 0.5 / 19 NOV 2026</span><span class="tick-dot"></span>
+          <span>STEAM PARTY / FRIENDS LIVE</span><span class="tick-dot"></span>
+          <span>INVITE NOTIFICATIONS</span><span class="tick-dot"></span>
+          <span>4-PLAYER PARTY LOBBY</span><span class="tick-dot"></span>
+          <span>RICH PRESENCE 2/4</span><span class="tick-dot"></span>
+          <span>30+ DIFFERENT CARDS</span><span class="tick-dot"></span>
           <span>1V1 REFERENCE MODE</span><span class="tick-dot"></span>
-          <span>FFA IN TESTING</span><span class="tick-dot"></span>
-          <span>MAIN DECK 20–30 / TESTING</span><span class="tick-dot"></span>
           <span>WITHERING ROSE / SPIKES 1</span><span class="tick-dot"></span>
-          <span>TIMELINE OPEN</span><span class="tick-dot"></span>
         </div>
         <div class="ticker-group">
-          <span>RULES REVISION 11 NOV 2026</span><span class="tick-dot"></span>
-          <span>410 RECORD CLOSED</span><span class="tick-dot"></span>
+          <span>BUILD 0.5 / 19 NOV 2026</span><span class="tick-dot"></span>
+          <span>STEAM PARTY / FRIENDS LIVE</span><span class="tick-dot"></span>
+          <span>INVITE NOTIFICATIONS</span><span class="tick-dot"></span>
+          <span>4-PLAYER PARTY LOBBY</span><span class="tick-dot"></span>
+          <span>RICH PRESENCE 2/4</span><span class="tick-dot"></span>
+          <span>30+ DIFFERENT CARDS</span><span class="tick-dot"></span>
           <span>1V1 REFERENCE MODE</span><span class="tick-dot"></span>
-          <span>FFA IN TESTING</span><span class="tick-dot"></span>
-          <span>MAIN DECK 20–30 / TESTING</span><span class="tick-dot"></span>
           <span>WITHERING ROSE / SPIKES 1</span><span class="tick-dot"></span>
-          <span>TIMELINE OPEN</span><span class="tick-dot"></span>
         </div>
       </div>
     </div>
@@ -241,10 +245,79 @@
       </div>
     </section>
 
+    <section class="section section-progress" id="progress" aria-labelledby="progressTitle">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="eyebrow">02 / BUILD PROGRESS</span>
+          <div class="section-head-row">
+            <h2 id="progressTitle">What we shipped.</h2>
+            <span class="section-date">19 NOV 2026</span>
+          </div>
+          <p class="section-lead">Since the last public record the build gained a real Steam layer: a friends panel, a party lobby, invitations and notifications. This is the work that is in the game right now.</p>
+        </div>
+
+        <div class="change-grid">
+          <article class="change-card reveal" style="--delay:.02s">
+            <div class="change-top">
+              <span class="diff-tag diff-tag-add" aria-label="Added">+</span>
+              <span class="change-meta">STEAM / 19 NOV</span>
+            </div>
+            <h3>Friends panel</h3>
+            <p>A live Steam friends list with real avatars, online state, in-game / other-games sections and a per-friend party invite button.</p>
+          </article>
+
+          <article class="change-card reveal" style="--delay:.06s">
+            <div class="change-top">
+              <span class="diff-tag diff-tag-add" aria-label="Added">+</span>
+              <span class="change-meta">STEAM / 19 NOV</span>
+            </div>
+            <h3>Party lobby</h3>
+            <p>A friends-only Steam lobby for up to four players: create, invite, join with one click, leave, switch privacy and a host-only right-click kick.</p>
+          </article>
+
+          <article class="change-card reveal" style="--delay:.1s">
+            <div class="change-top">
+              <span class="diff-tag diff-tag-add" aria-label="Added">+</span>
+              <span class="change-meta">UX / 19 NOV</span>
+            </div>
+            <h3>Invite notifications</h3>
+            <p>Party invites arrive as a bottom-right toast with Accept / Decline, then file into a notifications panel built to also carry Steam and back-end messages.</p>
+          </article>
+
+          <article class="change-card reveal" style="--delay:.02s">
+            <div class="change-top">
+              <span class="diff-tag diff-tag-change" aria-label="Changed">~</span>
+              <span class="change-meta">STEAM / 19 NOV</span>
+            </div>
+            <h3>Presence &amp; avatars</h3>
+            <p>Your party size is published to friends as rich presence (“in party 2/4”), and Steam avatars stream in without blocking the friends list.</p>
+          </article>
+
+          <article class="change-card reveal" style="--delay:.06s">
+            <div class="change-top">
+              <span class="diff-tag diff-tag-change" aria-label="Changed">~</span>
+              <span class="change-meta">CORE / 19 NOV</span>
+            </div>
+            <h3>Lobby &amp; transitions</h3>
+            <p>Camera fly-in, CRT interference, a timed loading-and-music transition into the match, and a benchmark flythrough with a clean exit button.</p>
+          </article>
+
+          <article class="change-card reveal" style="--delay:.1s">
+            <div class="change-top">
+              <span class="diff-tag diff-tag-change" aria-label="Changed">~</span>
+              <span class="change-meta">TOOLING / 19 NOV</span>
+            </div>
+            <h3>Settings &amp; accessibility</h3>
+            <p>Graphics presets (baked vs real-time lighting), audio buses, key bindings, and reduce-flashing / reduce-motion options.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <section class="section section-game" id="game" aria-labelledby="gameTitle">
       <div class="wrap">
         <div class="section-head reveal">
-          <span class="eyebrow">02 / THE GAME</span>
+          <span class="eyebrow">03 / THE GAME</span>
           <div class="section-head-row">
             <h2 id="gameTitle">Three pressures. One table.</h2>
           </div>
@@ -307,10 +380,67 @@
       </div>
     </section>
 
+    <section class="section section-cards" id="cards" aria-labelledby="cardsTitle">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="eyebrow">04 / THE CARDS</span>
+          <div class="section-head-row">
+            <h2 id="cardsTitle">30+ different cards.</h2>
+            <span class="section-date">ART PASS / 19 NOV 2026</span>
+          </div>
+          <p class="section-lead">Every card shares one occult cat language: a dark plate, a warm rim light and a single black cat. More than thirty cards are planned for the first playable build — units, items, abilities and the filler Withering Rose.</p>
+        </div>
+
+        <figure class="cards-showcase reveal">
+          <img src="pics/Picture223.png" alt="A grid of Catrames card art showing more than thirty different occult cat cards" width="886" height="489" loading="lazy" decoding="async">
+          <figcaption>CARDSET / 30+ DIFFERENT CARDS — ONE OCCULT CAT LANGUAGE ACROSS THE WHOLE DECK</figcaption>
+        </figure>
+
+        <div class="fact-grid reveal">
+          <div class="fact">
+            <span class="fact-label">CARD COUNT</span>
+            <strong>30+</strong>
+            <p>planned for the first build</p>
+          </div>
+          <div class="fact">
+            <span class="fact-label">CARD TYPES</span>
+            <strong>3</strong>
+            <p>units, items and abilities</p>
+          </div>
+          <div class="fact">
+            <span class="fact-label">ITEM HAND</span>
+            <strong>3</strong>
+            <p>items held at once</p>
+          </div>
+          <div class="fact">
+            <span class="fact-label">FILLER DECK</span>
+            <strong>∞</strong>
+            <p>the Withering Rose</p>
+          </div>
+        </div>
+
+        <div class="rose-layout reveal">
+          <figure class="cards-detail">
+            <img src="pics/Picture1.png" alt="A single Catrames card illustration" width="230" height="323" loading="lazy" decoding="async">
+          </figure>
+          <div class="rose-copy">
+            <p class="rule-lead">One language, thirty-plus faces.</p>
+            <p>Each card is a small dark plate with a single cat, a warm rim light and a purple occult backdrop. The art is deliberately low-detail and high-contrast so it stays readable as a tiny card on the 3D table and as a thumbnail in the deck builder.</p>
+            <ul class="rule-list">
+              <li><span>UNITS</span> Bodies you place on the board and can sacrifice for souls.</li>
+              <li><span>ITEMS</span> Consumables drafted every few turns; hold up to three.</li>
+              <li><span>ABILITIES</span> One-shot effects that bend combat, time or the board.</li>
+              <li><span>FILLER</span> The Withering Rose, drawn from an unlimited deck.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="section section-timeline" id="timeline" aria-labelledby="timelineTitle">
       <div class="wrap">
         <div class="section-head reveal">
-          <span class="eyebrow">03 / CHRONOLOGY</span>
+          <span class="eyebrow">05 / CHRONOLOGY</span>
           <div class="section-head-row">
             <h2 id="timelineTitle">Scrub the record.</h2>
             <span class="section-date">04 PUBLIC STATES</span>
@@ -395,7 +525,7 @@
     <section class="section section-rules" id="rules" aria-labelledby="rulesTitle">
       <div class="wrap">
         <div class="section-head reveal">
-          <span class="eyebrow">04 / RULES GUIDE</span>
+          <span class="eyebrow">06 / RULES GUIDE</span>
           <div class="section-head-row">
             <h2 id="rulesTitle">Every move is checked, paid for and remembered.</h2>
             <span class="section-date">REV. 11 NOV 2026</span>
@@ -740,24 +870,27 @@
     <section class="section section-devlog" id="devlog" aria-labelledby="devlogTitle">
       <div class="wrap">
         <div class="section-head reveal">
-          <span class="eyebrow">05 / UNDER THE HOOD</span>
+          <span class="eyebrow">07 / UNDER THE HOOD</span>
           <div class="section-head-row">
             <h2 id="devlogTitle">Built to feel recovered.</h2>
           </div>
-          <p class="section-lead">A multiplayer card-game platform in Godot, with persistent decks and a planned community editor. The visual target is PS1-era horror filtered through a failing CRT.</p>
+          <p class="section-lead">A multiplayer card-game platform in Godot with a live Steam friends-and-party layer, persistent decks and a planned community editor. The visual target is PS1-era horror filtered through a failing CRT.</p>
         </div>
 
         <div class="devlog-grid">
           <div class="devlog-copy reveal">
             <p>Catrames is being built as a 1v1 game first. The best-ping host validates souls, placement, targets and turn state; every peer receives an incremented state snapshot. If the host disconnects, authority waits 30 seconds before transferring to the next peer.</p>
+            <p>The current build already speaks Steam: friends and avatars come straight from Steamworks, a four-player party lobby handles invites, presence and host kicks, and a notifications layer turns party invites into toasts before filing them into a panel. That same layer is built to accept back-end messages later.</p>
             <p>Four-player free-for-all is in testing and is not part of the reference rules yet. Persistent decks, a community editor and a playable public build are planned.</p>
             <div class="tech-list">
               <span>GODOT 4.7</span>
               <span>C# / .NET</span>
+              <span>STEAMWORKS.NET</span>
+              <span>STEAM PARTY / LOBBY</span>
+              <span>FRIENDS + AVATARS</span>
+              <span>NOTIFICATIONS</span>
               <span>PS1 / CRT</span>
               <span>HOST AUTHORITY</span>
-              <span>30S MIGRATION</span>
-              <span>PERSISTENT DECKS</span>
               <span>COMMUNITY EDITOR / PLANNED</span>
             </div>
           </div>
@@ -765,9 +898,12 @@
           <div class="devlog-facts reveal">
             <div><span>ENGINE</span><strong>Godot 4.7</strong></div>
             <div><span>LANGUAGE</span><strong>C# / .NET</strong></div>
+            <div><span>ONLINE</span><strong>Steamworks</strong></div>
+            <div><span>PARTY LOBBY</span><strong>Up to 4</strong></div>
+            <div><span>NOTIFICATIONS</span><strong>Live</strong></div>
+            <div><span>CARDS</span><strong>30+ / art</strong></div>
             <div><span>LOOK</span><strong>PS1 / CRT</strong></div>
             <div><span>REFERENCE MODE</span><strong>1v1</strong></div>
-            <div><span>FFA</span><strong>In testing</strong></div>
             <div><span>PUBLIC BUILD</span><strong>Not yet</strong></div>
           </div>
         </div>
@@ -806,7 +942,9 @@
       <p class="footer-tagline">A dark retro-horror tactical card game.<br>Played across a physical 3D table.</p>
       <nav class="footer-nav" aria-label="Footer">
         <a href="#changes">Changes</a>
+        <a href="#progress">Progress</a>
         <a href="#game">Game</a>
+        <a href="#cards">Cards</a>
         <a href="#timeline">Timeline</a>
         <a href="#rules">Rules</a>
         <a href="#devlog">Under the hood</a>
