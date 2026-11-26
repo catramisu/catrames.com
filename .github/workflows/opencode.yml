@@ -1,0 +1,301 @@
+name: Catrames Agent
+
+on:
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
+  issues:
+    types: [opened, edited]
+  pull_request:
+    types: [opened, edited, reopened, ready_for_review]
+  workflow_dispatch:
+    inputs:
+      prompt:
+        description: Prompt to send to the agent
+        required: true
+        type: string
+      model:
+        description: Model in provider/model format
+        required: false
+        default: opencode-go/deepseek-v4.1-flash
+        type: string
+      variant:
+        description: Reasoning effort (low, high, max)
+        required: false
+        default: low
+        type: string
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: catrames-${{ github.event.issue.number || github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: false
+
+jobs:
+  agent:
+    runs-on: ubuntu-latest
+    # Skip the agent's own comments and metadata edits before a runner is allocated.
+    if: ${{ github.event_name == 'workflow_dispatch' || (github.event.comment.user.type != 'Bot' && github.event.sender.type != 'Bot') }}
+    steps:
+      - name: Check trigger and author
+        id: gate
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          REPO: ${{ github.repository }}
+          REPO_PRIVATE: ${{ github.event.repository.private }}
+          SENDER_TYPE: ${{ github.event.sender.type }}
+          COMMENT_BODY: ${{ github.event.comment.body }}
+          COMMENT_ASSOCIATION: ${{ github.event.comment.author_association }}
+          COMMENT_USER_TYPE: ${{ github.event.comment.user.type }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_ASSOCIATION: ${{ github.event.issue.author_association }}
+          ISSUE_USER_TYPE: ${{ github.event.issue.user.type }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+          PR_HEAD: ${{ github.event.pull_request.head.ref }}
+          PR_BASE: ${{ github.event.pull_request.base.ref }}
+          PR_ASSOCIATION: ${{ github.event.pull_request.author_association }}
+          PR_USER_TYPE: ${{ github.event.pull_request.user.type }}
+          PR_LABELS: ${{ toJSON(github.event.pull_request.labels.*.name) }}
+          PR_ASSIGNEES: ${{ toJSON(github.event.pull_request.assignees.*.login) }}
+          PR_REVIEWERS: ${{ toJSON(github.event.pull_request.requested_reviewers.*.login) }}
+          PR_REVIEW_TEAMS: ${{ toJSON(github.event.pull_request.requested_teams.*.slug) }}
+          PR_MILESTONE: ${{ github.event.pull_request.milestone.title }}
+          GH_TOKEN: ${{ github.token }}
+          DISPATCH_PROMPT: ${{ inputs.prompt }}
+          # @opencode is kept as an alias for older comments and links.
+          MENTIONS: "@catrames,@opencode,@ai,/oc,/opencode"
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          import re
+          import subprocess
+
+          mentions = [m.strip() for m in os.environ["MENTIONS"].split(",") if m.strip()]
+          event = os.environ["EVENT_NAME"]
+          repo = os.environ.get("REPO", "")
+          trusted = {"OWNER", "MEMBER", "COLLABORATOR"}
+          # Private repos already require access; GitHub may report NONE for org admins.
+          if os.environ.get("REPO_PRIVATE", "").lower() == "true":
+              trusted |= {"CONTRIBUTOR", "NONE"}
+
+          def pattern(mention):
+              # Whole-token match, so "@catrames" cannot match inside user@catrames.com.
+              return rf"(?<![\w@/-]){re.escape(mention)}(?![\w@/-])"
+
+          def mentioned(body):
+              return any(re.search(pattern(m), body, re.I) for m in mentions)
+
+          def strip_first_mention(body):
+              found = [match for m in mentions if (match := re.search(pattern(m), body, re.I))]
+              if not found:
+                  return body
+              first = min(found, key=lambda match: match.start())
+              return body[first.end():].lstrip()
+
+          def set_output(name, value):
+              with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as out:
+                  if "\n" in value:
+                      out.write(f"{name}<<__CATRAMES_EOF__\n{value}\n__CATRAMES_EOF__\n")
+                  else:
+                      out.write(f"{name}={value}\n")
+
+          def json_list(name):
+              raw = os.environ.get(name, "").strip()
+              if not raw:
+                  return []
+              try:
+                  value = json.loads(raw)
+              except ValueError:
+                  return []
+              return value if isinstance(value, list) else []
+
+          def gh_lines(*args):
+              try:
+                  result = subprocess.run(
+                      ["gh", *args],
+                      capture_output=True,
+                      text=True,
+                      timeout=20,
+                      env=os.environ,
+                  )
+              except Exception:
+                  return None
+              if result.returncode != 0:
+                  return None
+              return [line for line in result.stdout.splitlines() if line.strip()]
+
+          def missing_metadata():
+              number = os.environ.get("PR_NUMBER", "")
+              missing = []
+              if not json_list("PR_LABELS"):
+                  missing.append("labels")
+              if not json_list("PR_ASSIGNEES"):
+                  missing.append("assignee")
+              if not json_list("PR_REVIEWERS") and not json_list("PR_REVIEW_TEAMS"):
+                  reviews = gh_lines("api", f"repos/{repo}/pulls/{number}/reviews", "--jq", ".[].user.login")
+                  if not reviews:
+                      missing.append("reviewers")
+              if not os.environ.get("PR_MILESTONE", "").strip():
+                  milestones = gh_lines("api", f"repos/{repo}/milestones?state=open", "--jq", ".[].title")
+                  # Only ask for a milestone when one actually exists to choose from.
+                  if milestones:
+                      missing.append("milestone")
+              body = os.environ.get("PR_BODY", "") or ""
+              if not re.search(r"(?is)\b(?:close[sd]?|fix(?:es|ed)?|resolve[sd]?)\s*:?\s*#\d+\b", body):
+                  missing.append("linked issue")
+              return missing
+
+          def metadata_prompt(missing):
+              number = os.environ.get("PR_NUMBER", "")
+              return "\n".join([
+                  f"Fill in the missing metadata for pull request #{number} in {repo}.",
+                  "",
+                  "Missing fields: " + ", ".join(missing) + ".",
+                  "Title: " + os.environ.get("PR_TITLE", ""),
+                  "Author: " + os.environ.get("PR_AUTHOR", ""),
+                  "Branch: " + os.environ.get("PR_HEAD", "") + " -> " + os.environ.get("PR_BASE", ""),
+                  "",
+                  "Use the GitHub CLI (`gh`); GH_TOKEN is already set. This run is ONLY for PR metadata: do not edit files, commit, push, or change code.",
+                  "Do not overwrite metadata that is already set. Never invent labels, issues, reviewers, or milestones.",
+                  "",
+                  f"1. Assignee: if missing, run `gh pr edit {number} --add-assignee <author>` when the author is a collaborator.",
+                  f"2. Labels: read `gh pr diff {number}`, pick 1-3 clearly applicable labels from `gh label list`, then `gh pr edit {number} --add-label <label>`. Skip if nothing fits.",
+                  f"3. Reviewers: check `gh pr view {number} --json reviews,reviewRequests`. If none are requested or submitted, request one collaborator (never the author) listed by `gh api repos/{repo}/collaborators --jq '.[].login'` via `gh pr edit {number} --add-reviewer <login>`. Skip if no candidate exists.",
+                  f"4. Milestone: check `gh api 'repos/{repo}/milestones?state=open'`. Only if one clearly matches, run `gh pr edit {number} --milestone <title>`. Skip when none fits.",
+                  f"5. Linked issue: only when the branch name, title, or body unambiguously references an issue, add a `Closes #N` line with `gh pr edit {number} --body ...`, preserving the existing body. Otherwise skip.",
+                  "",
+                  "Work silently: do not summarise, list, or mention what you changed. Nobody reads this output, so keep it empty.",
+              ])
+
+          def review_prompt():
+              return "\n".join([
+                  "Write ONE short paragraph (maximum 100 words) reviewing this pull request.",
+                  "Voice: a senior engineer doing a Friday-afternoon review of a teammate's code - dry, sarcastic, fond of the author, with good tech jokes. Joke about the code, never the person.",
+                  "Ground the joke in one concrete observation from the diff. No headings, no bullet lists, no code blocks, no preamble, no sign-off.",
+                  "If the change is genuinely fine, say so briefly instead of inventing problems.",
+                  "This paragraph is the whole comment: it is posted on the pull request as-is.",
+              ])
+
+          metadata = ""
+          if event == "workflow_dispatch":
+              prompt = os.environ.get("DISPATCH_PROMPT", "").strip()
+              should_run = bool(prompt)
+          elif event == "pull_request":
+              body = os.environ.get("PR_BODY", "") or ""
+              association = os.environ.get("PR_ASSOCIATION", "")
+              sender_type = os.environ.get("SENDER_TYPE", "")
+              if sender_type == "Bot" or association not in trusted:
+                  prompt = ""
+                  should_run = False
+              else:
+                  missing = missing_metadata()
+                  metadata = metadata_prompt(missing) if missing else ""
+                  if mentioned(body):
+                      # Explicit mentions keep the raw comment as the prompt.
+                      prompt = strip_first_mention(body)
+                      should_run = True
+                  elif missing:
+                      # Metadata alone is backfilled silently; the visible
+                      # comment is a one-paragraph review instead.
+                      prompt = review_prompt()
+                      should_run = True
+                  else:
+                      prompt = ""
+                      should_run = False
+          else:
+              prefix = {
+                  "issue_comment": "COMMENT",
+                  "pull_request_review_comment": "COMMENT",
+                  "issues": "ISSUE",
+              }.get(event)
+              body = os.environ.get(f"{prefix}_BODY", "") if prefix else ""
+              association = os.environ.get(f"{prefix}_ASSOCIATION", "") if prefix else ""
+              user_type = os.environ.get(f"{prefix}_USER_TYPE", "") if prefix else ""
+              should_run = user_type != "Bot" and association in trusted and mentioned(body)
+              # The action extracts comment prompts itself; issue bodies need stripping here.
+              prompt = strip_first_mention(body) if event == "issues" else ""
+              if event == "issues" and not prompt:
+                  prompt = "Summarize this issue"
+
+          set_output("should_run", str(should_run).lower())
+          set_output("prompt", prompt)
+          set_output("has_metadata", str(bool(metadata)).lower())
+          set_output("metadata_prompt", metadata)
+          set_output("mentions", ",".join(mentions))
+          PY
+
+      - name: Mint GitHub App token
+        if: steps.gate.outputs.should_run == 'true'
+        id: app-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ vars.OPENCODE_APP_ID }}
+          private-key: ${{ secrets.OPENCODE_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: ${{ github.event.repository.name }}
+
+      - name: Checkout
+        if: steps.gate.outputs.should_run == 'true'
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          fetch-depth: 1
+          persist-credentials: true
+
+      - name: Configure Git identity
+        if: steps.gate.outputs.should_run == 'true'
+        run: |
+          slug='${{ steps.app-token.outputs.app-slug }}'
+          git config --local user.name "${slug}[bot]"
+          git config --local user.email "${slug}[bot]@users.noreply.github.com"
+
+      - name: Run agent
+        if: steps.gate.outputs.should_run == 'true'
+        uses: dceoy/opencode-action@163f9a9cd3d3f497e2847635585419f951371d2f # v0.8.1
+        env:
+          OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        with:
+          model: ${{ inputs.model || 'opencode-go/deepseek-v4.1-flash' }}
+          variant: ${{ inputs.variant || 'low' }}
+          agent: build
+          prompt: ${{ steps.gate.outputs.prompt }}
+          mentions: ${{ steps.gate.outputs.mentions }}
+          use-github-token: true
+          opencode-version: v1.19.3
+          timeout-minutes: 20
+
+      # Metadata edits must not show up as a comment, so this run skips the
+      # GitHub integration entirely: `opencode run` prints to the job log only.
+      # The binary and provider config come from the action step above.
+      - name: Backfill PR metadata
+        if: steps.gate.outputs.should_run == 'true' && steps.gate.outputs.has_metadata == 'true'
+        continue-on-error: true
+        timeout-minutes: 10
+        env:
+          OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          METADATA_PROMPT: ${{ steps.gate.outputs.metadata_prompt }}
+        run: |
+          if ! command -v opencode > /dev/null 2>&1; then
+            echo "::warning::opencode is not on PATH; skipping metadata backfill."
+            exit 0
+          fi
+          # --auto keeps CI from stalling on permission prompts; the prompt above
+          # forbids edits, commits and pushes.
+          opencode run \
+            --auto \
+            --model "${{ inputs.model || 'opencode-go/deepseek-v4.1-flash' }}" \
+            --agent build \
+            "$METADATA_PROMPT"
+
