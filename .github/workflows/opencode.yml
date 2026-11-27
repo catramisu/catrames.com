@@ -86,6 +86,8 @@ jobs:
           # Private repos already require access; GitHub may report NONE for org admins.
           if os.environ.get("REPO_PRIVATE", "").lower() == "true":
               trusted |= {"CONTRIBUTOR", "NONE"}
+          # Collaborators the agent must never pick as reviewers.
+          EXCLUDED_REVIEWERS = {"haslingerm", "fauernig"}
 
           def pattern(mention):
               # Whole-token match, so "@catrames" cannot match inside user@catrames.com.
@@ -133,6 +135,16 @@ jobs:
                   return None
               return [line for line in result.stdout.splitlines() if line.strip()]
 
+          def reviewer_candidates():
+              logins = gh_lines("api", f"repos/{repo}/collaborators", "--jq", ".[].login") or []
+              blocked = {login.casefold() for login in EXCLUDED_REVIEWERS}
+              author = os.environ.get("PR_AUTHOR", "").casefold()
+              return [
+                  login
+                  for login in logins
+                  if login.casefold() not in blocked and login.casefold() != author
+              ]
+
           def missing_metadata():
               number = os.environ.get("PR_NUMBER", "")
               missing = []
@@ -156,6 +168,20 @@ jobs:
 
           def metadata_prompt(missing):
               number = os.environ.get("PR_NUMBER", "")
+              candidates = reviewer_candidates()
+              if candidates:
+                  reviewer_step = (
+                      f"3. Reviewers: check `gh pr view {number} --json reviews,reviewRequests`. "
+                      "If none are requested or submitted, request one reviewer from this exact list: "
+                      + ", ".join(candidates)
+                      + f". Never pick {', '.join(sorted(EXCLUDED_REVIEWERS))}. "
+                      f"Use `gh pr edit {number} --add-reviewer <login>`."
+                  )
+              else:
+                  reviewer_step = (
+                      f"3. Reviewers: check `gh pr view {number} --json reviews,reviewRequests`. "
+                      "If none are requested or submitted, skip: no eligible reviewer candidate exists."
+                  )
               return "\n".join([
                   f"Fill in the missing metadata for pull request #{number} in {repo}.",
                   "",
@@ -169,7 +195,7 @@ jobs:
                   "",
                   f"1. Assignee: if missing, run `gh pr edit {number} --add-assignee <author>` when the author is a collaborator.",
                   f"2. Labels: read `gh pr diff {number}`, pick 1-3 clearly applicable labels from `gh label list`, then `gh pr edit {number} --add-label <label>`. Skip if nothing fits.",
-                  f"3. Reviewers: check `gh pr view {number} --json reviews,reviewRequests`. If none are requested or submitted, request one collaborator (never the author) listed by `gh api repos/{repo}/collaborators --jq '.[].login'` via `gh pr edit {number} --add-reviewer <login>`. Skip if no candidate exists.",
+                  reviewer_step,
                   f"4. Milestone: check `gh api 'repos/{repo}/milestones?state=open'`. Only if one clearly matches, run `gh pr edit {number} --milestone <title>`. Skip when none fits.",
                   f"5. Linked issue: only when the branch name, title, or body unambiguously references an issue, add a `Closes #N` line with `gh pr edit {number} --body ...`, preserving the existing body. Otherwise skip.",
                   "",
